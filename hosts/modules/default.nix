@@ -1,0 +1,8 @@
+{...}:
+{
+  imports = [
+    ./nixos
+    ./darwin
+    ./home
+  ];
+}
