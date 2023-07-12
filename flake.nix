@@ -8,24 +8,24 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:LnL7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ...}@inputs: {
+  outputs = { self, nixpkgs, home-manager, hyprland, ...}@inputs: 
+    let
+      load = import ./lib/load.nix;
+    in
+    {
     nixosConfigurations = {
-      "shugbook" = nixpkgs.lib.nixosSystem {
+      shugtest = load {
+        inherit  inputs; 
         system = "x86_64-linux";
-        modules = [
-	  inputs.impermanence.nixosModules.impermanence
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = inputs;
-            home-manager.users.shug = import ./home;
-          }
-          ./persistent
-          ./system  
-        ];
+        hostname =  "shugtest";
+        user = "anli";
+        initPassword =  ""; 
       };
     };
   };
