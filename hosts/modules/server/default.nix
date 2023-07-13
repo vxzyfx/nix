@@ -6,7 +6,6 @@ in
 {
   options.hostModules.server = { enable = mkEnableOption "server"; };
   config = mkIf cfg.enable {
-    hostModules.bash.enable = true;
     hostModules.console.enable = true;
     hostModules.doas.enable = true;
     hostModules.home.enable = true;

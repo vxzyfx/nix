@@ -3,6 +3,7 @@
   hostModules.desktop.enable = true;
   hostModules.bluetooth.enable = true;
   hostModules.wifi.enable = true;
+  hostModules.virt-manager.enable = true;
 
   system.stateVersion = stateVersion;
   boot.extraModprobeConfig = ''

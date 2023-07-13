@@ -6,7 +6,6 @@ in
 {
   options.hostModules.desktop = { enable = mkEnableOption "desktop"; };
   config = mkIf cfg.enable {
-    hostModules.bash.enable = true;
     hostModules.console.enable = true;
     hostModules.doas.enable = true;
     hostModules.fonts.enable = true;

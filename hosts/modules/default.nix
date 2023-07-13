@@ -1,7 +1,6 @@
 {...}:
 {
   imports = [
-    ./bash
     ./bluetooth
     ./console
     ./darwin
@@ -9,7 +8,7 @@
     ./doas
     ./fonts
     ./home
-    ./kvm
+    ./libvirt
     ./neovim
     ./nixos
     ./openssh
@@ -19,6 +18,7 @@
     ./server
     ./systemd-boot
     ./user
+    ./virt-manager
     ./wifi
   ];
 }

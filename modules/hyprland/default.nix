@@ -1,4 +1,4 @@
-{ lib, config, inputs, ...}: 
+{ lib, config, pkgs, ...}: 
 with lib;
 let
   cfg = config.modules.hyprland;
@@ -13,9 +13,8 @@ in
       swaylock.enable = true;
       mako.enable = true;
     };
-    wayland.windowManager.hyprland = {
-      enable = true;
-      extraConfig = readFile ./hyprland.conf;
-    };
+    home.packages = with pkgs; [
+      hyprland
+    ];
   };
 }

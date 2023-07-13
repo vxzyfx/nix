@@ -2,7 +2,6 @@
   description = "Nixos";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland";
     impermanence.url = "github:nix-community/impermanence";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -14,7 +13,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ...}@inputs: 
+  outputs = { self, nixpkgs, home-manager, ...}@inputs: 
     let
       load = import ./lib/load.nix;
     in

@@ -1,8 +1,5 @@
 { inputs, ...}:
 {
-  imports = [
-      inputs.hyprland.homeManagerModules.default
-  ];
   modules.hyprland.enable = true;
   modules.neovim.enable = true;
   modules.packages.enable = true;
