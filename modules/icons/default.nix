@@ -1,5 +1,12 @@
-{pkgs, ...}:
+{pkgs, lib, config, ...}:
+with lib;
+let 
+  cfg = config.modules.icons;
+in
 {
-  gtk.iconTheme.name = "";
-  gtk.iconTheme.package = pkgs.papirus-icon-theme;
+  options.modules.icons = { enable = mkEnableOption "icons"; };
+  config = {
+    gtk.iconTheme.name = "Papirus";
+    gtk.iconTheme.package = pkgs.papirus-icon-theme;
+  };
 }

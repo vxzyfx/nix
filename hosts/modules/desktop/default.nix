@@ -17,5 +17,10 @@ in
     hostModules.pipewire.enable = true;
     hostModules.systemd-boot.enable = true;
     hostModules.user.enable = true;
+
+    hardware.opengl = {
+      enable = true;
+      driSupport = true;
+    };
   };
 }

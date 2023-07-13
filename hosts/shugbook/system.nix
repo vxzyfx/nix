@@ -5,6 +5,7 @@
   hostModules.wifi.enable = true;
   hostModules.virt-manager.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = stateVersion;
   boot.extraModprobeConfig = ''
     blacklist nouveau 

@@ -13,6 +13,7 @@ in
       swaylock.enable = true;
       mako.enable = true;
     };
+    xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
     home.packages = with pkgs; [
       hyprland
     ];
