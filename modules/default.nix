@@ -3,10 +3,11 @@
   programs.home-manager.enable = true;
   imports = [
     ./alacritty
-    ./fonts 
     ./foot 
+    ./git
     ./hyprland 
     ./icons 
+    ./jetbrians 
     ./mako 
     ./neovim
     ./packages 

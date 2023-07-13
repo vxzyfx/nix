@@ -1,10 +1,10 @@
-{user, stateVersion, ...}:
+{user, stateVersion, inputs, ...}:
 {
-  hostModules.nixos.enable = true;
-  hostModules.home.enable = true;
+  hostModules.desktop.enable = true;
+  hostModules.bluetooth.enable = true;
+  hostModules.wifi.enable = true;
 
   system.stateVersion = stateVersion;
-  networking.wireless.iwd.enable = true;
   boot.extraModprobeConfig = ''
     blacklist nouveau 
   '';
@@ -13,6 +13,5 @@
     "dialout"
     "uucp"
     "input"
-    "libvirtd"
   ];
 }

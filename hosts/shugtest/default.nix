@@ -1,8 +1,15 @@
-{...}: 
-{
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
-  services.openssh.enable = true;
+{ system, inputs, ...}@all:
+inputs.nixpkgs.lib.nixosSystem {
+  system = system;
+  specialArgs = all // {
+    stateVersion = "23.11";
+    home = import ./home.nix;
+  }; 
+  modules = [
+    inputs.impermanence.nixosModules.impermanence
+    inputs.home-manager.nixosModules.home-manager
+    ./system.nix
+    ../modules
+    ./hardware-configuration.nix
+  ];
 }

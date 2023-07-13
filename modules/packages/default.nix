@@ -10,16 +10,7 @@ in
       packages = with pkgs; [
         google-chrome
         firefox
-        virt-manager
         zeal-qt6
-        jetbrains.webstorm
-        jetbrains.ruby-mine
-        jetbrains.rider
-        jetbrains.pycharm-professional
-        jetbrains.idea-ultimate
-        jetbrains.goland
-        jetbrains.dataspell
-        jetbrains.clion
       ];
     };
   };

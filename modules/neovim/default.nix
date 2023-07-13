@@ -7,10 +7,5 @@ in
   options.modules.neovim = { enable = mkEnableOption "neovim"; };
   config = mkIf cfg.enable {
     xdg.configFile."nvim".source = ./nvim;
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-    };
   };
 }

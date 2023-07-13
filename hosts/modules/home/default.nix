@@ -2,20 +2,13 @@
 with lib;
 let
   cfg = config.hostModules.home;
-  load = p : {
-  imports = [
-      ../../../modules
-      home
-    ];
-  home.stateVersion = stateVersion;
-  };
 in
 {
   options.hostModules.home = { enable = mkEnableOption "home"; };
   config = mkIf cfg.enable {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = all;
-    home-manager.users.${user} = load;
+    home-manager.extraSpecialArgs = { inherit home inputs stateVersion;};
+    home-manager.users.${user} = import ./load.nix;
   };
 }

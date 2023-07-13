@@ -8,7 +8,7 @@ inputs.nixpkgs.lib.nixosSystem {
   modules = [
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
-    ./special.nix
+    ./system.nix
     ../modules
     ./hardware-configuration.nix
   ];

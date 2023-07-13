@@ -3,6 +3,6 @@
   imports = [
       ../../../modules
       home
-    ];
+  ];
   home.stateVersion = stateVersion;
 }

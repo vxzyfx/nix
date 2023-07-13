@@ -1,8 +1,23 @@
 {...}:
 {
   imports = [
-    ./nixos
+    ./bluetooth
+    ./console
     ./darwin
+    ./desktop
+    ./doas
+    ./fonts
     ./home
+    ./kvm
+    ./neovim
+    ./nixos
+    ./openssh
+    ./packages
+    ./persistent
+    ./pipewire
+    ./server
+    ./systemd-boot
+    ./user
+    ./wifi
   ];
 }
