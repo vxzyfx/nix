@@ -11,6 +11,7 @@
     ./mako 
     ./neovim
     ./packages 
+    ./starship 
     ./swaylock 
     ./tmux 
     ./waybar 
