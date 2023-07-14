@@ -18,6 +18,7 @@ in
     hostModules.systemd-boot.enable = true;
     hostModules.user.enable = true;
 
+    programs.hyprland.enable = true;
     hardware.opengl = {
       enable = true;
       driSupport = true;
