@@ -9,6 +9,13 @@ in
     environment.systemPackages = with pkgs; [
       wget
       git
+      neofetch
+      ripgrep
+      jq
+      tldr
+      file
+      tree
+      lsof
     ];
   };
 }

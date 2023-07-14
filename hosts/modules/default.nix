@@ -17,8 +17,9 @@
     ./pipewire
     ./server
     ./systemd-boot
+    ./systemd-network
     ./user
-    ./virt-manager
+    ./virt-view
     ./wifi
   ];
 }

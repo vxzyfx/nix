@@ -16,6 +16,7 @@ in
     hostModules.persistent.enable = true;
     hostModules.pipewire.enable = true;
     hostModules.systemd-boot.enable = true;
+    hostModules.systemd-network.enable = true;
     hostModules.user.enable = true;
 
     programs.hyprland.enable = true;

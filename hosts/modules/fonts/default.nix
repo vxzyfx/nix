@@ -10,6 +10,8 @@ in
       fonts = with pkgs; [
         jetbrains-mono
         openmoji-color
+        wqy_zenhei
+        wqy_microhei
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       ];
       fontconfig = {

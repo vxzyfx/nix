@@ -7,6 +7,7 @@ in
   options.hostModules.nixos = { enable = mkEnableOption "nixos"; };
   config = mkIf cfg.enable {
     networking.hostName = hostname;
+    time.timeZone = "Asia/Shanghai";
     nix = {
       settings.experimental-features = [ "nix-command" "flakes" ];
       settings.auto-optimise-store = true;

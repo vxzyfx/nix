@@ -9,7 +9,7 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./system.nix
-    ../modules
+    ../../modules
     ./hardware-configuration.nix
   ];
 }

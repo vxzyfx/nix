@@ -1,9 +1,10 @@
 {...}:
 {
   programs.home-manager.enable = true;
-  programs.bash.enable = true;
   imports = [
     ./alacritty
+    ./bash
+    ./fcitx5
     ./foot 
     ./git
     ./hyprland 
@@ -12,6 +13,7 @@
     ./mako 
     ./neovim
     ./packages 
+    ./ranger
     ./starship 
     ./swaylock 
     ./tmux 

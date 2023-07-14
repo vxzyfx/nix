@@ -8,6 +8,5 @@ in
   config = mkIf cfg.enable {
     virtualisation.libvirtd.enable = true;
     users.users."${user}".extraGroups = [ "libvirtd" ];
-    environment.systemPackages = with pkgs; [ guestfs-tools ];
   };
 }

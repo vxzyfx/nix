@@ -15,6 +15,7 @@ in
     hostModules.packages.enable = true;
     hostModules.persistent.enable = true;
     hostModules.systemd-boot.enable = true;
+    hostModules.systemd-network.enable = true;
     hostModules.user.enable = true;
   };
 }
