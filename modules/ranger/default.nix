@@ -6,6 +6,7 @@ in
 {
   options.modules.ranger = { enable = mkEnableOption "ranger"; };
   config = mkIf cfg.enable {
+    xdg.configFile."ranger".source = ./ranger;
     home = {
       packages = with pkgs; [
         ranger

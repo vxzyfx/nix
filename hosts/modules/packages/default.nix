@@ -16,6 +16,7 @@ in
       file
       tree
       lsof
+      unzip
     ];
   };
 }

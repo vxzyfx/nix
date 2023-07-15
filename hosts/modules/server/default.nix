@@ -10,12 +10,12 @@ in
     hostModules.doas.enable = true;
     hostModules.home.enable = true;
     hostModules.neovim.enable = true;
+    hostModules.nftables.enable = true;
     hostModules.nixos.enable = true;
     hostModules.openssh.enable = true;
     hostModules.packages.enable = true;
     hostModules.persistent.enable = true;
     hostModules.systemd-boot.enable = true;
-    hostModules.systemd-network.enable = true;
     hostModules.user.enable = true;
   };
 }

@@ -5,7 +5,7 @@ let
 in
 {
   options.modules.fcitx5 = { enable = mkEnableOption "fcitx5"; };
-  config = {
+  config = mkIf cfg.enable {
     i18n.inputMethod.enabled = "fcitx5";
     i18n.inputMethod.fcitx5.addons = with pkgs; [
       fcitx5-chinese-addons

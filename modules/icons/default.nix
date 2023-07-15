@@ -6,7 +6,7 @@ in
 {
   options.modules.icons = { enable = mkEnableOption "icons"; };
   config = {
-    gtk.iconTheme.name = "Papirus";
+    gtk.iconTheme.name = "ePapirus-Dark";
     gtk.iconTheme.package = pkgs.papirus-icon-theme;
   };
 }

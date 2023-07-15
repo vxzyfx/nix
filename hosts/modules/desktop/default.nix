@@ -11,12 +11,12 @@ in
     hostModules.fonts.enable = true;
     hostModules.home.enable = true;
     hostModules.neovim.enable = true;
+    hostModules.nftables.enable = true;
     hostModules.nixos.enable = true;
     hostModules.packages.enable = true;
     hostModules.persistent.enable = true;
     hostModules.pipewire.enable = true;
     hostModules.systemd-boot.enable = true;
-    hostModules.systemd-network.enable = true;
     hostModules.user.enable = true;
 
     programs.hyprland.enable = true;
