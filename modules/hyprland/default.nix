@@ -7,33 +7,31 @@ in
   options.modules.hyprland = { enable = mkEnableOption "hyprland"; };
   config = mkIf cfg.enable {
     modules = {
-      alacritty.enable = true;
       waybar.enable = true;
       wofi.enable = true;
       swaylock.enable = true;
       mako.enable = true;
+      wayland.enable = true;
+    };
+    home = {
+      packages = with pkgs; [
+        hyprpaper
+      ];
     };
 
-#    programs.bash.profileExtra = ''
-#    if [[ -z $DISPLAY ]];then
-#      env
-#      Hyprland
-#      exit
-#    fi
-#    '';
-    # systemd.user.services.hyprland = {
-    #   Unit = {
-    #     Description = "hyprland service";
-    #   };
-    #
-    #   Service = {
-    #     ExecStart = "/nix/store/k4jxqhk1aqa08hzfrwajz0npz4hbcgvi-hyprland-0.27.0/bin/Hyprland";
-    #   };
-    #
-    #   Install = {
-    #     WantedBy = ["default.target"];
-    #   };
-    # };
+    systemd.user.services.hyprpaper = {
+      Unit = {
+        Description = "hyprpaper service";
+      };
+
+      Service = {
+        ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper";
+      };
+
+      Install = {
+        WantedBy = ["hyprland-session.target"];
+      };
+    };
     systemd.user.targets.hyprland-session = {
       Unit = {
         Description = "Hyprland compositor session";
@@ -44,5 +42,10 @@ in
       };
     };
     xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
+    xdg.configFile."hypr/wallpaper.jpg".source = ./wallpaper.jpg;
+    xdg.configFile."hypr/hyprpaper.conf".text = ''
+      preload = ~/.config/hypr/wallpaper.jpg
+      wallpaper = eDP-1,~/.config/hypr/wallpaper.jpg
+    '';
   };
 }

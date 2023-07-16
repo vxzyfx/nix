@@ -22,7 +22,7 @@ in
           modules-center = ["hyprland/window"];
           modules-right = ["cpu" "memory" "temperature" "battery" "clock"];
           "hyprland/workspaces" = {
-            format = "{id}";
+            format = "{}";
           };
           "idle_inhibitor" = {
             format = "{icon}";
@@ -44,10 +44,10 @@ in
             format-icons = ["" "" "" "" "" "" "" "" ""];
           };
           "network" = {
-            format-wifi = "{essid} ({signalStrength}%) ";
-            format-ethernet = "{ipaddr}/{cidr} ";
-            tooltip-format = "{ifname} via {gwaddr} ";
-            format-linked = "{ifname} (No IP) ";
+            format-wifi = "{essid} ({signalStrength}%)  ";
+            format-ethernet = "{ipaddr}/{cidr} 󰱓 ";
+            tooltip-format = "{ifname} via {gwaddr} 󰲝 ";
+            format-linked = "{ifname} (No IP) 󰅛 ";
             format-disconnected = "Disconnected ⚠";
             format-alt = "{ifname}: {ipaddr}/{cidr}";
           };

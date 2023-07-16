@@ -1,4 +1,4 @@
-{ lib, config, ...}:
+{ lib, config, pkgs, ...}:
 with lib;
 let
   cfg = config.modules.foot;
@@ -6,11 +6,26 @@ in
 {
   options.modules.foot = { enable = mkEnableOption "foot"; };
   config = mkIf cfg.enable {
+    systemd.user.services.foot = {
+      Unit = {
+        Description = "foot service";
+      };
+
+      Service = {
+        ExecStart = "${pkgs.foot}/bin/foot --server";
+        Restart = "on-failure";
+      };
+
+      Install = {
+        WantedBy = ["hyprland-session.target"];
+      };
+    };
     programs.foot = {
       enable = true;
       settings = {
         main = {
-          font = "JetBrainsMono Nerdfont:size=12:line-height=16px";
+          term = "xterm-256color";
+          font = "JetBrainsMono Nerdfont:size=12:line-height=14px";
           pad = "12x12";
         };
         colors = {

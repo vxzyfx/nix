@@ -8,9 +8,9 @@ in
   config = mkIf cfg.enable {
     home = {
       packages = with pkgs; [
-        google-chrome
         firefox
         zeal-qt6
+        xorg.xlsclients
       ];
     };
   };

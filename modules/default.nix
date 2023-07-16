@@ -4,11 +4,11 @@
   imports = [
     ./alacritty
     ./bash
+    ./direnv
     ./fcitx5
     ./foot 
     ./git
     ./hyprland 
-    ./icons 
     ./jetbrians 
     ./mako 
     ./neovim
@@ -17,7 +17,9 @@
     ./starship 
     ./swaylock 
     ./tmux 
+    ./theme
     ./waybar 
+    ./wayland
     ./wofi 
   ];
 }
