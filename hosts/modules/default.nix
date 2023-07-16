@@ -14,7 +14,6 @@
     ./nixos
     ./openssh
     ./packages
-    ./persistent
     ./pipewire
     ./server
     ./systemd-boot

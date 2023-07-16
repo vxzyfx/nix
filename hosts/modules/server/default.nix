@@ -14,7 +14,6 @@ in
     hostModules.nixos.enable = true;
     hostModules.openssh.enable = true;
     hostModules.packages.enable = true;
-    hostModules.persistent.enable = true;
     hostModules.systemd-boot.enable = true;
     hostModules.user.enable = true;
   };

@@ -6,7 +6,6 @@ inputs.nixpkgs.lib.nixosSystem {
     home = import ./home.nix;
   }; 
   modules = [
-    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./system.nix
     ../../modules

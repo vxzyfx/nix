@@ -14,9 +14,9 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tmpfs";
-      fsType = "tmpfs";
-      options = ["size=60%" "mode=755"];
+    { device = "/dev/disk/by-uuid/ffa2efbc-4f52-4208-9460-7f114a75b623";
+      fsType = "btrfs";
+      options = [ "subvol=nixos" ];
     };
 
   fileSystems."/boot" =
@@ -24,11 +24,11 @@
       fsType = "vfat";
     };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/ffa2efbc-4f52-4208-9460-7f114a75b623";
-      fsType = "btrfs";
-      options = [ "subvol=nixos" ];
-    };
+  # fileSystems."/nix" =
+  #   { device = "/dev/disk/by-uuid/ffa2efbc-4f52-4208-9460-7f114a75b623";
+  #     fsType = "btrfs";
+  #     options = [ "subvol=nix" ];
+  #   };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/3921d7fe-14bd-4770-8f76-dffac284d755"; }
@@ -38,7 +38,7 @@
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
+  # networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

@@ -8,6 +8,10 @@ in
   config = mkIf cfg.enable {
     programs.waybar = {
       enable = true;
+      systemd = {
+        enable = true;
+        target = "hyprland-session.target";
+      };
       settings = {
         mainBar = {
           layer = "top";

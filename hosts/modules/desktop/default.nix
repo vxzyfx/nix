@@ -14,7 +14,6 @@ in
     hostModules.nftables.enable = true;
     hostModules.nixos.enable = true;
     hostModules.packages.enable = true;
-    hostModules.persistent.enable = true;
     hostModules.pipewire.enable = true;
     hostModules.systemd-boot.enable = true;
     hostModules.user.enable = true;
