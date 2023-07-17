@@ -10,6 +10,7 @@
     ./home
     ./libvirt
     ./neovim
+    ./nfs
     ./nftables
     ./nixos
     ./openssh

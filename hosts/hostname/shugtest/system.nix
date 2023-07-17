@@ -6,6 +6,12 @@
     interfaces = ["virbr0"];
   };
 
+  hostModules.nfs = {
+    enable = true;
+    exports = ''
+      /mnt/nfs         *(rw,fsid=0,insecure,no_root_squash,no_subtree_check)
+    '';
+  };
   hostModules.systemd-network = {
     enable = true;
     enableDHCP = true;
