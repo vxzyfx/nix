@@ -14,24 +14,11 @@ return {
       history = true,
       delete_check_events = "TextChanged",
     },
-    -- stylua: ignore
-    keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true, silent = true, mode = "i",
-      },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-    },
   },
 
   -- auto completion
   {
     "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -64,6 +51,37 @@ return {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<Tab>"] = cmp.mapping(function(fallback)
+             if cmp.visible() then
+               cmp.select_next_item()
+             elseif luasnip.jumpable(1) then
+               luasnip.jump(1)
+             elseif luasnip.expand_or_jumpable() then
+               luasnip.expand_or_jump()
+             elseif luasnip.expandable() then
+               luasnip.expand()
+             elseif check_backspace() then
+               cmp.complete()
+               fallback()
+             else
+               fallback()
+             end
+           end, {
+             "i",
+             "s",
+           }),
+           ["<S-Tab>"] = cmp.mapping(function(fallback)
+             if cmp.visible() then
+               cmp.select_prev_item()
+             elseif luasnip.jumpable(-1) then
+               luasnip.jump(-1)
+             else
+               fallback()
+             end
+           end, {
+             "i",
+             "s",
+           }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -151,10 +169,6 @@ return {
   -- Better text-objects
   {
     "echasnovski/mini.ai",
-    -- keys = {
-    --   { "a", mode = { "x", "o" } },
-    --   { "i", mode = { "x", "o" } },
-    -- },
     event = "VeryLazy",
     dependencies = { "nvim-treesitter-textobjects" },
     opts = function()
@@ -177,58 +191,80 @@ return {
     end,
   },
   {
+    'crusj/bookmarks.nvim',
+    keys = {
+      { "ma", function() require("bookmarks").add_bookmarks() end, desc = "Add" },
+      { "md", function() require("bookmarks").delete_on_virt() end, desc = "Delete" },
+      { "mm", function() require("bookmarks").toggle_bookmarks() end, desc = "show" },
+      { "ms", function() require("bookmarks.list").show_desc() end, desc = "Show Desc" },
+    },
+    branch = 'main',
+    dependencies = { 'nvim-web-devicons' },
+    config = function()
+        require("bookmarks").setup()
+        require("telescope").load_extension("bookmarks")
+    end
+  },
+  {
     "simrat39/symbols-outline.nvim",
+    keys = {
+      {"<leader>us", "<cmd>SymbolsOutline<CR>", desc = "Show Symbols"},
+    },
     opts = {
-      	highlight_hovered_item = true,
-	show_guides = true,
-	auto_preview = false,
-	position = "right",
-	width = 40,
-	show_numbers = false,
-	show_relative_numbers = false,
-	show_symbol_details = true,
-	keymaps = { -- These keymaps can be a string or a table for multiple keys
-		close = { "<Esc>", "q" },
-		goto_location = "<Cr>",
-		focus_location = "o",
-		hover_symbol = "<C-space>",
-		toggle_preview = "K",
-		rename_symbol = "r",
-		code_actions = "a",
-	},
-	lsp_blacklist = {},
-	symbol_blacklist = {},
-	symbols = {
-		File = { icon = icons.documents.File, hl = "CmpItemKindFile" },
-		Module = { icon = icons.kind.Module, hl = "CmpItemKindModule" },
-		Namespace = { icon = icons.kind.Module, hl = "CmpItemKindModule" },
-		Package = { icon = icons.kind.Module, hl = "CmpItemKindModule" },
-		Class = { icon = icons.kind.Class, hl = "CmpItemKindClass" },
-		Method = { icon = icons.kind.Method, hl = "CmpItemKindMethod" },
-		Property = { icon = icons.kind.Property, hl = "CmpItemKindProperty" },
-		Field = { icon = icons.kind.Field, hl = "CmpItemKindField" },
-		Constructor = { icon = icons.kind.Constructor, hl = "CmpItemKindConstructor" },
-		Enum = { icon = icons.kind.Enum, hl = "CmpItemKindEnum" },
-		Interface = { icon = icons.kind.Interface, hl = "CmpItemKindInterface" },
-		Function = { icon = icons.kind.Function, hl = "CmpItemKindFunction" },
-		Variable = { icon = icons.kind.Variable, hl = "CmpItemKindVariable" },
-		Constant = { icon = icons.kind.Constant, hl = "CmpItemKindConstant" },
-		String = { icon = icons.type.String, hl = "TSString" },
-		Number = { icon = icons.type.Number, hl = "TSNumber" },
-		Boolean = { icon = icons.type.Boolean, hl = "TSBoolean" },
-		Array = { icon = icons.type.Array, hl = "TSKeyword" },
-		Object = { icon = icons.type.Object, hl = "TSKeyword" },
-		Key = { icon = icons.kind.Keyword, hl = "CmpItemKeyword" },
-		Null = { icon = "NULL", hl = "TSKeyword" },
-		EnumMember = { icon = icons.kind.EnumMember, hl = "CmpItemKindEnumMember" },
-		Struct = { icon = icons.kind.Struct, hl = "CmpItemKindStruct" },
-		Event = { icon = icons.kind.Event, hl = "CmpItemKindEvent" },
-		Operator = { icon = icons.kind.Operator, hl = "CmpItemKindOperator" },
-		TypeParameter = { icon = icons.kind.TypeParameter, hl = "CmpItemKindTypeParameter" },
-	},
+      highlight_hovered_item = true,
+	    show_guides = true,
+	    auto_preview = false,
+	    position = "right",
+	    width = 40,
+	    show_numbers = false,
+	    show_relative_numbers = false,
+	    show_symbol_details = true,
+	    keymaps = { -- These keymaps can be a string or a table for multiple keys
+	    	close = { "<Esc>", "q" },
+	    	goto_location = "<Cr>",
+	    	focus_location = "o",
+	    	hover_symbol = "<C-space>",
+	    	toggle_preview = "K",
+	    	rename_symbol = "r",
+	    	code_actions = "a",
+	    },
+	    lsp_blacklist = {},
+	    symbol_blacklist = {},
+	    symbols = {
+	    	File = { icon = icons.documents.File, hl = "CmpItemKindFile" },
+	    	Module = { icon = icons.kind.Module, hl = "CmpItemKindModule" },
+	    	Namespace = { icon = icons.kind.Module, hl = "CmpItemKindModule" },
+	    	Package = { icon = icons.kind.Module, hl = "CmpItemKindModule" },
+	    	Class = { icon = icons.kind.Class, hl = "CmpItemKindClass" },
+	    	Method = { icon = icons.kind.Method, hl = "CmpItemKindMethod" },
+	    	Property = { icon = icons.kind.Property, hl = "CmpItemKindProperty" },
+	    	Field = { icon = icons.kind.Field, hl = "CmpItemKindField" },
+	    	Constructor = { icon = icons.kind.Constructor, hl = "CmpItemKindConstructor" },
+	    	Enum = { icon = icons.kind.Enum, hl = "CmpItemKindEnum" },
+	    	Interface = { icon = icons.kind.Interface, hl = "CmpItemKindInterface" },
+	    	Function = { icon = icons.kind.Function, hl = "CmpItemKindFunction" },
+	    	Variable = { icon = icons.kind.Variable, hl = "CmpItemKindVariable" },
+	    	Constant = { icon = icons.kind.Constant, hl = "CmpItemKindConstant" },
+	    	String = { icon = icons.type.String, hl = "TSString" },
+	    	Number = { icon = icons.type.Number, hl = "TSNumber" },
+	    	Boolean = { icon = icons.type.Boolean, hl = "TSBoolean" },
+	    	Array = { icon = icons.type.Array, hl = "TSKeyword" },
+	    	Object = { icon = icons.type.Object, hl = "TSKeyword" },
+	    	Key = { icon = icons.kind.Keyword, hl = "CmpItemKeyword" },
+	    	Null = { icon = "NULL", hl = "TSKeyword" },
+	    	EnumMember = { icon = icons.kind.EnumMember, hl = "CmpItemKindEnumMember" },
+	    	Struct = { icon = icons.kind.Struct, hl = "CmpItemKindStruct" },
+	    	Event = { icon = icons.kind.Event, hl = "CmpItemKindEvent" },
+	    	Operator = { icon = icons.kind.Operator, hl = "CmpItemKindOperator" },
+	    	TypeParameter = { icon = icons.kind.TypeParameter, hl = "CmpItemKindTypeParameter" },
+	    },
     },
   },
   {
     "folke/zen-mode.nvim",
+    lazy = true,
+    keys = {
+       {"<leader>uz", function() require("zen-mode").toggle() end, desc = "ZenMode"},
+    },
   },
 }

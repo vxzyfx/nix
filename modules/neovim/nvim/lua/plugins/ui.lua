@@ -45,42 +45,34 @@ return {
       end
     end,
   },
-
-  -- This is what powers LazyVim's fancy-looking
-  -- tabs, which include filetype icons and close buttons.
   {
-    "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+    "romgrk/barbar.nvim",
+    event = "VimEnter",
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
+    init = function() vim.g.barbar_auto_setup = true end,
     opts = {
-      options = {
-        -- stylua: ignore
-        close_command = function(n) require("mini.bufremove").delete(n, false) end,
-        -- stylua: ignore
-        right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
-        diagnostics_indicator = function(_, _, diag)
-          local icons = require("config.icons").diagnostics
-          local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-            .. (diag.warning and icons.Warn .. diag.warning or "")
-          return vim.trim(ret)
-        end,
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Neo-tree",
-            highlight = "Directory",
-            text_align = "left",
-          },
-        },
-      },
+    },
+    keys = {
+      { "<leader>b1", "<Cmd>BufferGoto 1<CR>", desc = "goto bufer 1"},
+      { "<leader>b2", "<Cmd>BufferGoto 2<CR>", desc = "goto bufer 2"},
+      { "<leader>b3", "<Cmd>BufferGoto 3<CR>", desc = "goto bufer 3"},
+      { "<leader>b4", "<Cmd>BufferGoto 4<CR>", desc = "goto bufer 4"},
+      { "<leader>b5", "<Cmd>BufferGoto 5<CR>", desc = "goto bufer 5"},
+      { "<leader>b6", "<Cmd>BufferGoto 6<CR>", desc = "goto bufer 6"},
+      { "<leader>b7", "<Cmd>BufferGoto 7<CR>", desc = "goto bufer 7"},
+      { "<leader>b8", "<Cmd>BufferGoto 8<CR>", desc = "goto bufer 8"},
+      { "<leader>b9", "<Cmd>BufferGoto 9<CR>", desc = "goto bufer 9"},
+      { "<leader>b1", "<Cmd>BufferLast<CR>", desc = "goto last bufer"},
+      { "<leader>bb", "<Cmd>BufferClose<CR>", desc = "close bufer"},
+      { "<leader>b,", "<Cmd>BufferPrevious<CR>", desc = "previous bufer"},
+      { "<leader>b.", "<Cmd>BufferNext<CR>", desc = "next bufer"},
+      { "<leader>bj", "<Cmd>BufferMovePrevious<CR>", desc = "move previous bufer"},
+      { "<leader>bk", "<Cmd>BufferMoveNext<CR>", desc = "move next bufer"},
     },
   },
-
   -- statusline
   {
     "nvim-lualine/lualine.nvim",
@@ -115,17 +107,14 @@ return {
             },
           },
           lualine_x = {
-            -- stylua: ignore
             {
               function() return require("noice").api.status.command.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
             },
-            -- stylua: ignore
             {
               function() return require("noice").api.status.mode.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
             },
-            -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
               cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
@@ -141,6 +130,8 @@ return {
             },
           },
           lualine_y = {
+            "fileformat",
+            "encoding",
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
@@ -251,7 +242,6 @@ return {
   },
 
   -- Dashboard. This runs when neovim starts, and is what displays
-  -- the "LAZYVIM" banner.
   {
     "goolord/alpha-nvim",
     event = "VimEnter",

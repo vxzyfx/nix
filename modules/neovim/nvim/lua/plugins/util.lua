@@ -7,7 +7,6 @@ return {
     "folke/persistence.nvim",
     event = "BufReadPre",
     opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" } },
-    -- stylua: ignore
     keys = {
       { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
       { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
@@ -20,9 +19,7 @@ return {
     opts = {
         -- Whether to enable the plugin
       enabled = true,
-
       timeout = 2000,
-
       autowrite = true,
       save_on_cmd = "all",
       save_on_bufleave = true,
@@ -75,7 +72,12 @@ return {
         -- post_hook = nil, -- Function to run after the scrolling animation ends
     },
   },
-
+  {
+    "akinsho/toggleterm.nvim",
+    opts = {
+      
+    },
+  },
   -- library used by other plugins
   { "nvim-lua/plenary.nvim", lazy = true },
 }

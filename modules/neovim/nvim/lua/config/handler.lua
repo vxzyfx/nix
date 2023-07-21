@@ -24,19 +24,18 @@ end
 
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>Telescope lsp_declarations<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gI", "<cmd>Telescope lsp_implementations<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]]
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>Format<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<cr><cr>", "<cmd>lua vim.lsp.buf.code_action({ filter = function(a) return a.isPreferred end, apply = true })<cr> <cmd>w<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<Space><cr>", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<cr>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>Telescope lsp_declarations<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", function() vim.lsp.buf.hover() end, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", function() vim.diagnostic.open_float() end, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", function() vim.lsp.buf.signature_help() end, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "glf", function() vim.lsp.buf.format({ async = true }) end, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<CR><CR>", function() vim.lsp.buf.code_action({ filter = function(a) return a.isPreferred end, apply = true }) end, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<Space><CR>", function() vim.diagnostic.goto_next({ border = "rounded" }) end, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gln", function() vim.lsp.buf.rename() end, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", function() vim.lsp.buf.type_definition() end, opts)
 end
 
 M.on_attach = function(client, bufnr)

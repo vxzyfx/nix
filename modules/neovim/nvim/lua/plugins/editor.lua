@@ -8,21 +8,12 @@ return {
     cmd = "Neotree",
     keys = {
       {
-        "<leader>fe",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = require("lazyvim.util").get_root() })
-        end,
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>fE",
+        "<leader>e",
         function()
           require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
         end,
-        desc = "Explorer NeoTree (cwd)",
+        desc = "NeoTree",
       },
-      { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
-      { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
     },
     deactivate = function()
       vim.cmd([[Neotree close]])
@@ -88,29 +79,30 @@ return {
     cmd = "Telescope",
     version = false, -- telescope did only one release, so use HEAD for now
     keys = {
-      { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-      { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+      { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<CR>", desc = "Switch Buffer" },
+      { "<leader>:", "<cmd>Telescope command_history<CR>", desc = "Command History" },
       -- find
-      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+      { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
+      { "<leader>fr", "<cmd>Telescope oldfiles<CR>", desc = "Recent" },
       -- git
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
       { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
       -- search
-      { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
-      { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-      { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
-      { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-      { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-      { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
-      { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
-      { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-      { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
-      { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-      { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-      { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
-      { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-      { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
+      { '<leader>s"', "<cmd>Telescope registers<CR>", desc = "Registers" },
+      { "<leader>sa", "<cmd>Telescope autocommands<CR>", desc = "Auto Commands" },
+      { "<leader>ss", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Buffer" },
+      { "<leader>sb", "<cmd>Telescope bookmarks<CR>", desc = "Bookmarks" },
+      { "<leader>sc", "<cmd>Telescope command_history<CR>", desc = "Command History" },
+      { "<leader>sC", "<cmd>Telescope commands<CR>", desc = "Commands" },
+      { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>", desc = "Document diagnostics" },
+      { "<leader>sD", "<cmd>Telescope diagnostics<CR>", desc = "Workspace diagnostics" },
+      { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Pages" },
+      { "<leader>sH", "<cmd>Telescope highlights<CR>", desc = "Search Highlight Groups" },
+      { "<leader>sk", "<cmd>Telescope keymaps<CR>", desc = "Key Maps" },
+      { "<leader>sM", "<cmd>Telescope man_pages<CR>", desc = "Man Pages" },
+      { "<leader>sm", "<cmd>Telescope marks<CR>", desc = "Jump to Mark" },
+      { "<leader>so", "<cmd>Telescope vim_options<CR>", desc = "Options" },
+      { "<leader>sR", "<cmd>Telescope resume<CR>", desc = "Resume" },
     },
     opts = {
       defaults = {
@@ -147,7 +139,6 @@ return {
     },
   },
 
-  { "ggandor/flit.nvim", enabled = false, optional = true },
 
   -- Flash enhances the built-in search functionality by showing labels
   -- at the end of each match, letting you quickly jump to a specific
@@ -168,45 +159,38 @@ return {
     },
   },
 
-  -- Flash Telescope config
-  {
-    "nvim-telescope/telescope.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if not require("lazyvim.util").has("flash.nvim") then
-        return
-      end
-      local function flash(prompt_bufnr)
-        require("flash").jump({
-          pattern = "^",
-          label = { after = { 0, 0 } },
-          search = {
-            mode = "search",
-            exclude = {
-              function(win)
-                return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
-              end,
-            },
-          },
-          action = function(match)
-            local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-            picker:set_selection(match.pos[1] - 1)
-          end,
-        })
-      end
-      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-        mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
-      })
-    end,
-  },
-
   -- which-key helps you remember key bindings by showing a popup
   -- with the active keybindings of the command you started typing.
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    keys = {
+      { "`]", "<cmd>vertical res +1<CR>", desc = "Width increase" },
+      { "`[", "<cmd>vertical res -1<CR>", desc = "Width decrease" },
+      { "`.", "<cmd>resize +1<CR>", desc = "Height increase" },
+      { "`,", "<cmd>resize -1<CR>", desc = "Height decrease" },
+      { "`=", "<C-w>=", desc = "Qually height and wide" },
+      { "`_", "<C-w>_", desc = "Max out the height" },
+      { "`|", "<C-w>|", desc = "Max out the width" },
+      { "`h", "<C-w>h", desc = "Go to the left window" },
+      { "`j", "<C-w>j", desc = "Go to the down window" },
+      { "`k", "<C-w>k", desc = "Go to the up window" },
+      { "`l", "<C-w>l", desc = "Go to the right window" },
+      { "`s", "<C-w>s", desc = "Split window" },
+      { "`t", "<C-w>v", desc = "Split window vertically" },
+      { "`q", "<C-w>q", desc = "Close window" },
+      { "`w", "<C-w>w", desc = "Switch window" },
+      { "`x", "<C-w>w", desc = "Swap current with window" },
+    
+      },
     opts = {
-      plugins = { spelling = true },
+      plugins = {
+        marks = false,
+        spelling = {
+          enabled = true, 
+          suggestions = 20, -- how many suggestions should be shown in the list?
+        }, 
+      },
       defaults = {
         mode = { "n", "v" },
         ["g"] = { name = "+goto" },
@@ -312,16 +296,6 @@ return {
     },
   },
 
-  -- buffer remove
-  {
-    "echasnovski/mini.bufremove",
-    -- stylua: ignore
-    keys = {
-      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
-    },
-  },
-
   -- better diagnostics list and others
   {
     "folke/trouble.nvim",
@@ -374,10 +348,10 @@ return {
     keys = {
       { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
       { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
-      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+      { "<leader>xt", "<cmd>TodoTrouble<CR>", desc = "Todo (Trouble)" },
+      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<CR>", desc = "Todo/Fix/Fixme (Trouble)" },
+      { "<leader>st", "<cmd>TodoTelescope<CR>", desc = "Todo" },
+      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<CR>", desc = "Todo/Fix/Fixme" },
     },
   },
 }

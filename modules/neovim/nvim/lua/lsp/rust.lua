@@ -35,44 +35,29 @@ return {
 
   {
     "simrat39/rust-tools.nvim",
-    lazy = true,
-    opts = function()
-      return {
-        tools = {
-	  executor = require("rust-tools.executors").termopen,
-	  reload_workspace_from_cargo_toml = true,
-          inlay_hints = {
-            only_current_line = false,
-            auto = true,
-            only_current_line_autocmd = "CursorHold",
-            show_parameter_hints = true,
-            show_variable_name = true,
-            parameter_hints_prefix = "<- ",
-            other_hints_prefix = "=> ",
-            max_len_align = false,
-            max_len_align_padding = 1,
-            right_align = false,
-            right_align_padding = 7,
-            highlight = "Comment",
-          },
-          hover_actions = {
-            auto_focus = false,
-            border = "rounded",
-            width = 60,
-          },
-        },
-      }
-      end
-  },
-  {
-    "neovim/nvim-lspconfig",
-    optional = true,
     opts = {
-      rust_analyzer = {
-        opts = {},
-        setup = function()
-          require("rust-tools")
-        end
+      tools = {
+	      -- executor = require("rust-tools.executors").termopen,
+	      reload_workspace_from_cargo_toml = true,
+        inlay_hints = {
+          only_current_line = false,
+          auto = true,
+          only_current_line_autocmd = "CursorHold",
+          show_parameter_hints = true,
+          show_variable_name = true,
+          parameter_hints_prefix = "<- ",
+          other_hints_prefix = "=> ",
+          max_len_align = false,
+          max_len_align_padding = 1,
+          right_align = false,
+          right_align_padding = 7,
+          highlight = "Comment",
+        },
+        hover_actions = {
+          auto_focus = false,
+          border = "rounded",
+          width = 60,
+        },
       },
     },
   },
