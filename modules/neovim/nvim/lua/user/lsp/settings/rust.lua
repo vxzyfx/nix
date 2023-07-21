@@ -14,7 +14,7 @@ return {
     inlay_hints = {
       -- Only show inlay hints for the current line
       only_current_line = false,
-      auto = false,
+      auto = true,
 
       -- Event which triggers a refersh of the inlay hints.
       -- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
@@ -25,21 +25,21 @@ return {
 
       -- whether to show parameter hints with the inlay hints or not
       -- default: true
-      show_parameter_hints = false,
+      show_parameter_hints = true,
 
       -- whether to show variable name before type hints with the inlay hints or not
       -- default: false
-      show_variable_name = false,
+      show_variable_name = true,
 
       -- prefix for parameter hints
       -- default: "<-"
       -- parameter_hints_prefix = "<- ",
-      parameter_hints_prefix = " ",
+      parameter_hints_prefix = "<- ",
 
       -- prefix for all the other hints (type, chaining)
       -- default: "=>"
       -- other_hints_prefix = "=> ",
-      other_hints_prefix = " ",
+      other_hints_prefix = "=> ",
 
       -- whether to align to the lenght of the longest line in the file
       max_len_align = false,
@@ -64,25 +64,7 @@ return {
     },
   },
   server = {
-    --[[
-        $ mkdir -p ~/.local/bin
-        $ curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
-        $ chmod +x ~/.local/bin/rust-analyzer
-    --]]
-    -- cmd = { os.getenv "HOME" .. "/.local/bin/rust-analyzer" },
-    cmd = { "rustup", "run", "stable", "rust-analyzer" },
-    on_attach = require("user.lsp.handlers").on_attach,
-    capabilities = require("user.lsp.handlers").capabilities,
-
-    settings = {
-      ["rust-analyzer"] = {
-        lens = {
-          enable = true,
-        },
-        checkOnSave = {
-          command = "clippy",
-        },
-      },
-    },
+    cmd = { "rust-analyzer" },
+    standalone = true,
   },
 }

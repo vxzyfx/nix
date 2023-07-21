@@ -6,7 +6,6 @@ end
 
 local icons = require "user.icons"
 
-
 navic.setup {
   icons = {
     File = ' ',

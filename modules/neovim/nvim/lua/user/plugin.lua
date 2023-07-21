@@ -18,6 +18,8 @@ if not status_ok then
   return
 end
 
+local flash = require("user.flash")
+
 return lazy.setup {
   -- Plugin Mangager
   "folke/lazy.nvim",
@@ -27,8 +29,6 @@ return lazy.setup {
 
   -- LSP
   "neovim/nvim-lspconfig", -- enable LSP
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
   "b0o/SchemaStore.nvim",
   "jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
   "ray-x/lsp_signature.nvim",
@@ -78,7 +78,12 @@ return lazy.setup {
   "lunarvim/onedarker.nvim",
 
   -- Motion
-  "phaazon/hop.nvim",
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = flash.opts,
+    keys = flash.keys,
+  },
 
   -- Utility
   "rcarriga/nvim-notify",
@@ -127,8 +132,8 @@ return lazy.setup {
   -- use("junegunn/vim-slash")
 
   -- Git
-  "lewis6991/gitsigns.nvim",
-  "f-person/git-blame.nvim",
+  -- "lewis6991/gitsigns.nvim",
+  -- "f-person/git-blame.nvim",
 
   -- Tab
   "romgrk/barbar.nvim",
