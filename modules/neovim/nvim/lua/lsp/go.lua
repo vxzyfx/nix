@@ -16,7 +16,6 @@ return {
       gopls = {
         on_attach = function(client, bufnr)
           require("config.handler").on_attach(client, bufnr)
-          vim.notify("on_attach")
         end,
         settings = {
           gopls = {

@@ -84,6 +84,8 @@ return {
       -- find
       { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
       { "<leader>fr", "<cmd>Telescope oldfiles<CR>", desc = "Recent" },
+      { "<leader>ft", "<cmd>Telescope live_grep<CR>", desc = "Text" },
+      { "<leader>fs", "<cmd>Telescope grep_string<CR>", desc = "String" },
       -- git
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
       { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
@@ -146,8 +148,6 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    vscode = true,
-    ---@type Flash.Config
     opts = {},
     -- stylua: ignore
     keys = {
@@ -165,23 +165,22 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     keys = {
-      { "`]", "<cmd>vertical res +1<CR>", desc = "Width increase" },
-      { "`[", "<cmd>vertical res -1<CR>", desc = "Width decrease" },
-      { "`.", "<cmd>resize +1<CR>", desc = "Height increase" },
-      { "`,", "<cmd>resize -1<CR>", desc = "Height decrease" },
-      { "`=", "<C-w>=", desc = "Qually height and wide" },
-      { "`_", "<C-w>_", desc = "Max out the height" },
-      { "`|", "<C-w>|", desc = "Max out the width" },
-      { "`h", "<C-w>h", desc = "Go to the left window" },
-      { "`j", "<C-w>j", desc = "Go to the down window" },
-      { "`k", "<C-w>k", desc = "Go to the up window" },
-      { "`l", "<C-w>l", desc = "Go to the right window" },
-      { "`s", "<C-w>s", desc = "Split window" },
-      { "`t", "<C-w>v", desc = "Split window vertically" },
-      { "`q", "<C-w>q", desc = "Close window" },
-      { "`w", "<C-w>w", desc = "Switch window" },
-      { "`x", "<C-w>w", desc = "Swap current with window" },
-    
+      { "<leader>w]", "<cmd>vertical res +1<CR>", desc = "Width increase" },
+      { "<leader>w[", "<cmd>vertical res -1<CR>", desc = "Width decrease" },
+      { "<leader>w.", "<cmd>resize +1<CR>", desc = "Height increase" },
+      { "<leader>w,", "<cmd>resize -1<CR>", desc = "Height decrease" },
+      { "<leader>w=", "<C-w>=", desc = "Qually height and wide" },
+      { "<leader>w_", "<C-w>_", desc = "Max out the height" },
+      { "<leader>w|", "<C-w>|", desc = "Max out the width" },
+      { "<leader>wh", "<C-w>h", desc = "Go to the left window" },
+      { "<leader>wj", "<C-w>j", desc = "Go to the down window" },
+      { "<leader>wk", "<C-w>k", desc = "Go to the up window" },
+      { "<leader>wl", "<C-w>l", desc = "Go to the right window" },
+      { "<leader>ws", "<C-w>s", desc = "Split window" },
+      { "<leader>wt", "<C-w>v", desc = "Split window vertically" },
+      { "<leader>wq", "<C-w>q", desc = "Close window" },
+      { "<leader>ww", "<C-w>w", desc = "Switch window" },
+      { "<leader>wx", "<C-w>x", desc = "Swap current with window" }, 
       },
     opts = {
       plugins = {

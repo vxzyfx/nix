@@ -13,6 +13,7 @@ in
       gopls
       nodePackages.pyright
       clang-tools_16
+      marksman
       ];
   };
 }
