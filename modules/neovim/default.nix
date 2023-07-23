@@ -10,10 +10,6 @@ in
     home.packages = with pkgs; [
       tree-sitter
       rustup
-      gopls
-      nodePackages.pyright
-      clang-tools_16
-      marksman
       ];
   };
 }

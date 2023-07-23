@@ -73,6 +73,21 @@ return {
     end,
   },
   {
+    "leoluz/nvim-dap-go",
+    ft = "go",
+    opts = {},
+  },
+  {
+    "ray-x/go.nvim",
+    dependencies = {
+      "ray-x/guihua.lua",
+    },
+    opts = {},
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = function() require("go.install").update_all_sync() end,
+  },
+  {
     "nvim-neotest/neotest",
     optional = true,
     dependencies = {

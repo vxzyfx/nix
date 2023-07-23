@@ -1,7 +1,32 @@
 local on_attach = function(client, bufnr)
   local handler = require("config.handler")
+  local null_ls = require("null-ls")
   local rt = require("rust-tools")
   local wk = require("which-key")
+  local unwrap = {
+    method = null_ls.methods.DIAGNOSTICS,
+    filetypes = { "rust" },
+    generator = {
+      fn = function(params)
+        local diagnostics = {}
+        for i, line in ipairs(params.content) do
+          local col, end_col = line:find "unwrap()"
+          if col and end_col then
+            table.insert(diagnostics, {
+              row = i,
+              col = col,
+              end_col = end_col,
+              source = "unwrap",
+              message = "hey " .. os.getenv("USER") .. ", don't forget to handle this" ,
+              severity = 2,
+            })
+          end
+        end
+       return diagnostics
+      end,
+    },
+  }
+  null_ls.register(unwrap)
   wk.register({
     d = {
       d = { rt.debuggables.debuggables, "Debug"},
@@ -19,7 +44,6 @@ local on_attach = function(client, bufnr)
       k = { function() rt.move_item.move_item(true) end, "Move down"},
     },
   }, { buffer = bufnr, prefix = "<leader>"})
-  -- wk.register(keys, {buffer=bufnr, prefix="<leader>"})
   handler.on_attach(client, bufnr)
 end
 
@@ -52,15 +76,15 @@ return {
 
   {
     "simrat39/rust-tools.nvim",
+    ft = { "rust" },
     opts = function()
-      local extension_path = '/'
-      local codelldb_path = extension_path .. 'adapter/codelldb'
-      local liblldb_path = extension_path .. 'lldb/lib/liblldb'
-      local this_os = vim.loop.os_uname().sysname
-      liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
       return {
         dap = {
-          adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
+          adapter = {
+            type = "executable",
+            command = "lldb-vscode",
+            name = "rt_lldb",
+          },
         },
         tools = {
 	        -- executor = require("rust-tools.executors").termopen,

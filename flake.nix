@@ -15,6 +15,10 @@
   outputs = { self, nixpkgs, home-manager, ...}@inputs: 
     let
       load = import ./lib/load.nix;
+      supportedSystems = [ "x86_64-linux" "aarch64-darwin" ];
+      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
+        pkgs = import nixpkgs { inherit system; };
+      });
     in
     {
     nixosConfigurations = {
@@ -33,5 +37,56 @@
         initPassword = "";
       };
     };
+    devShells = forEachSupportedSystem ({ pkgs }: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          nodejs_20
+          gcc13
+          python311
+        ];
+      };
+      ngcc = pkgs.mkShell {
+        packages = with pkgs; [
+          clang-tools_16
+          lldb
+          gcc13
+        ];
+      };
+      nweb = pkgs.mkShell {
+        packages = with pkgs; [
+          nodejs_20
+          vscode-langservers-extracted
+          nodePackages.typescript-language-server
+          nodePackages.volar
+          marksman
+        ];
+      };
+      ngo = pkgs.mkShell {
+        packages = with pkgs; [
+          gopls
+          go
+          gotools
+          golangci-lint
+        ];
+        shellHook = ''
+          export GOPATH=$HOME/Documents/env/go
+        '';
+      };
+      ndotnet = pkgs.mkShell {
+        packages = with pkgs; [
+          dotnet-sdk_7
+          csharp-ls
+        ];
+      };
+      npy = pkgs.mkShell {
+        packages = with pkgs; [
+          python311
+          python311Packages.pip
+          virtualenv
+          nodePackages.pyright
+          python311Packages.debugpy
+        ];
+      };
+    });
   };
 }

@@ -16,7 +16,7 @@ return {
     opts = function()
       local nls = require("null-ls")
       return {
-        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", "Makefile", ".git"),
         sources = {
           nls.builtins.formatting.fish_indent,
           nls.builtins.diagnostics.fish,
@@ -74,6 +74,9 @@ return {
       },
       {
         "Weissle/persistent-breakpoints.nvim",
+        opts = {
+          load_breakpoints_event = {"BufReadPost"},
+        },
         keys = {
           { "<leader>dB", function() require("persistent-breakpoints.api").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
           { "<leader>db", function() require('persistent-breakpoints.api').toggle_breakpoint() end, desc = "Toggle Breakpoint" },
