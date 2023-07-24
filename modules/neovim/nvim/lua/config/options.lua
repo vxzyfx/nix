@@ -37,6 +37,7 @@ local options = {
   sidescrolloff = 8,
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
   title = true,
+  background = "dark",
   -- colorcolumn = "80",
   -- colorcolumn = "120",
 

@@ -36,7 +36,7 @@ return {
     opts = {
         -- Whether to enable the plugin
       enabled = true,
-      timeout = 2000,
+      timeout = 200000,
       autowrite = true,
       save_on_cmd = "all",
       save_on_bufleave = true,
