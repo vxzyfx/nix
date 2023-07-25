@@ -72,6 +72,11 @@
           export GOPATH=$HOME/Documents/env/go
         '';
       };
+      nflutter = pkgs.mkShell {
+        packages = with pkgs; [
+          flutter
+        ];
+      };
       ndotnet = pkgs.mkShell {
         packages = with pkgs; [
           dotnet-sdk_7
