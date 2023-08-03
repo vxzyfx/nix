@@ -74,7 +74,7 @@
       };
       nflutter = pkgs.mkShell {
         packages = with pkgs; [
-          flutter
+	  flutter-unwrapped
         ];
       };
       ndotnet = pkgs.mkShell {

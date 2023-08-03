@@ -28,6 +28,7 @@ local on_attach = function(client, bufnr)
   }
   null_ls.register(unwrap)
   wk.register({
+    ["<leader>"] = { rt.code_action_group.code_action_group, "Rust Action" },
     d = {
       d = { rt.debuggables.debuggables, "Debug"},
     },

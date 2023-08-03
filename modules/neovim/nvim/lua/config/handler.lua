@@ -27,7 +27,7 @@ local function lsp_keymaps(bufnr)
   local wk = require("which-key")
 
   wk.register({
-    ["<leader>"] = { function() vim.lsp.buf.code_action({ filter = function(a) return a.isPreferred end, apply = true }) end, "Aciton"},
+--     ["<leader>"] = { function() vim.lsp.buf.code_action({ filter = function(a) return a.isPreferred end, apply = true }) end, "Aciton"},
     ["<CR>"] = { function() vim.diagnostic.goto_next({ border = "rounded" }) end, "Goto diag"},
     l = {
       name = "lsp",
