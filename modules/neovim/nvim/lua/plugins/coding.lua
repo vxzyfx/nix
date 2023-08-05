@@ -30,6 +30,11 @@ return {
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
+      local luasnip = require("luasnip")
+      local check_backspace = function()
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+      end
       return {
         completion = {
           completeopt = "menu,menuone,noinsert",
@@ -61,7 +66,6 @@ return {
              elseif luasnip.expandable() then
                luasnip.expand()
              elseif check_backspace() then
-               cmp.complete()
                fallback()
              else
                fallback()
